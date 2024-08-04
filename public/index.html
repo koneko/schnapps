@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>schnapps client</title>
+    <link href="css/base.css" rel="stylesheet">
+  </head>
+  <body>
+      <main>
+        <div>
+          <h1>schnapps</h1>
+          <p id="fillusername"></p>
+        </div>
+        <div>
+          <button id="create-room">create room</button>
+          <button onclick="refreshRooms()">refresh list</button>
+        </div>
+        <div>
+          <h2>rooms</h2>
+          <div class="rooms">
+            <p>loading...</p>
+          </div>
+        </div>
+      </main>
+  </body>
+  <script src="./js/user.js"></script>
+  <script src="./js/rooms.js"></script>
+</html>
