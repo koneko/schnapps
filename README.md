@@ -1,15 +1,6 @@
 # schnapps
-
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.21. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+like belote but simpler  
+rules are detailed in [rules.md](rules.md)  
+my first time writing something with bun, typescript and in vim (NvChad)  
+i stole the cards from [bela.fun](https://bela.fun/) along with the idea of making this online, since i only play it with my friends  
+currenty not done, will update whenever i feel like it
