@@ -49,6 +49,19 @@ export class Deck {
     this.cards.splice(index, 1)
     return card;
   }
+  public GetAssociatedImage(value, cType) {
+    if(value == 2) {
+      return `/assets/${cType}/Jack.png`
+    } else if (value == 3) {
+      return `/assets/${cType}/Queen.png`
+    } else if (value == 4) {
+      return `/assets/${cType}/King.png`
+    } else if (value == 10) {
+      return `/assets/${cType}/Ten.png`
+    } else if (value == 11) {
+      return `/assets/${cType}/Ace.png`
+    }
+  } 
   public SetAdut(suit) {
     this.cards.forEach(card => {
       if(card.Suit == suit) card.SetAdut();
@@ -58,13 +71,11 @@ export class Deck {
 
 export class Player {
   public username: string;
-  public roomID: number;
   public totalPoints: number = 10;
   public gamePoints: number = 0;
   public hand: Array;
   constructor(username, roomID) {
     this.username = username;
-    this.roomID = roomID;
     this.hand = [];
   }
 }
@@ -72,8 +83,8 @@ export class Player {
 export class Room {
   public displayName: string;
   public roomID: number;
-  public players: Player;
-  public juggernaut: number; // juggernaut is an index into players list, which will not change
+  public players: Array<Player>;
+  public juggernaut: number = null; // juggernaut is an index into players list, which will not change
   public maxSize: number;
   public isInGame: boolean = false;
   public markedForDeletion: boolean = false;
@@ -100,6 +111,7 @@ export class Room {
     if(user) {
       if(players.indexOf(user) == 0) {
         this.markedForDeletion = true
+        delete this
         return
       }
       this.players.splice(players.indexOf(user), 1)

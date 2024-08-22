@@ -2,9 +2,9 @@ import { Room, Player } from "./definitions.ts"
 import { Server } from "socket.io"
 import express from "express"
 
-let r = new Room(3)
-r.players = [new Player("testname=|23231=|1/1", r.roomID)]
-let rooms = [r] 
+//let r = new Room(3)
+//r.players = [new Player("testname=|23231=|1/1")]
+let rooms = [] 
 
 const app = express();
 app.use(express.static("public"))
@@ -21,13 +21,35 @@ function isUserInRoom(username) {
   return value
 }
 
+function userJoinRoom(username, roomID) {
+  let returnCode
+  rooms.forEach((room) => {
+    if (room.roomID == roomID) {
+      returnCode = room.AddPlayerToRoom(username)
+    }
+  })
+  return returnCode
+}
+
 app.get("/rooms", (req,res) => {
-  res.json(rooms)
+  let cleanrooms = []
+  rooms.forEach(room => cleanrooms.push(room.ToJSON()))
+  res.json(cleanrooms)
 })
 
 app.get("/isinroom", (req,res) => {
  let username = req.query.username;
  res.json({response: isUserInRoom(username)})
+})
+
+app.get("/createRoom" , (req,res) => {
+  let username = req.query.username
+  if(!isUserInRoom(username)) {
+    let room = new Room(3)
+    rooms.push(room)
+    room.players = [new Player(username)]
+    return {roomID: room.roomID}
+  }
 })
 
 const server = app.listen(3000, () => console.log("Listening on port 3000."));
